@@ -9,7 +9,7 @@ namespace BookStore.Models
     {
         public int PurchaseId { get; set; }
 
-        public int Person { get; set; }
+        public string Person { get; set; }
 
         public string Address { get; set; }
 
