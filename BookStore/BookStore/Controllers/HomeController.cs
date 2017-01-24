@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using BookStore.Models;
 using BookStore.Util;
+using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace BookStore.Controllers
 {
@@ -16,8 +18,28 @@ namespace BookStore.Controllers
         {
             IEnumerable<Book> books = db.Books;
 
+            Session["name"] = "Tom";
+
             ViewBag.Books = books;
 
+            ViewBag.Message = "Это вызов частичного представления";
+
+            return View();
+        }
+        public ActionResult Partial()
+        {
+            ViewBag.Message = "Это частичное представление";
+            return PartialView();
+        }
+        public ActionResult Model()
+        {
+            return View(db.Books);
+        }
+        //асинхр метод
+        public async Task<ActionResult> BookList()
+        {
+            IEnumerable<Book> books = await db.Books.ToListAsync();
+            ViewBag.Books = books;
             return View();
         }
         [HttpGet]
@@ -59,6 +81,11 @@ namespace BookStore.Controllers
             string referrer = HttpContext.Request.UrlReferrer == null ? "" : HttpContext.Request.UrlReferrer.AbsoluteUri;
             return "<p>Browser: " + browser + "</p><p>User-Agent: " + user_agent + "</p><p>Url запроса: " + url +
                 "</p><p>Реферер: " + referrer + "</p><p>IP-адрес: " + ip + "</p>";
+        }
+        public string GetName()
+        {
+            var val = Session["name"];
+            return val.ToString();
         }
     }
 }

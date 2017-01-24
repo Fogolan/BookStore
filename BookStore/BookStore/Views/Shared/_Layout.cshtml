@@ -12,5 +12,15 @@
        </ul>
    </nav>
     @RenderBody()
+    <footer>
+        @if (IsSectionDefined("Footer"))
+        {    
+            @RenderSection("Footer")
+        }
+        else
+        {
+            <span>Содержание элемента footer по умолчанию.</span>
+        }
+    </footer>
 </body>
 </html>

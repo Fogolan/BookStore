@@ -1,6 +1,8 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using BookStore.Helpers
+@Html.Partial("Partial")
     <div>
         <h3>Распродажа книг</h3>
         <table>
@@ -19,4 +21,19 @@
                 </tr>
             }
         </table>
+        <br/>
+        @{
+            string[] cities = new string[] { "Лондон", "Париж", "Берлин" };
+         }
+        @{
+            string[] countries = new string[] { "Великобритания", "Франция", "Россия" };
+         }
+        <h3>Города</h3>
+        @Html.CreateList(cities)
+        <br/>
+        <h3>Страны</h3>
+        @ListHelper.CreateList(Html, countries)
     </div>
+@section Footer {
+    Все права запрещены. NiBo Corp. 2017.
+}
